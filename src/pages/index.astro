@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ProblemSolution from '../components/ProblemSolution.astro';
+import Services from '../components/Services.astro';
+import Niches from '../components/Niches.astro';
+import Plans from '../components/Plans.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import Comparison from '../components/Comparison.astro';
+import Faq from '../components/Faq.astro';
+import About from '../components/About.astro';
+import Contact from '../components/Contact.astro';
+---
+
+<BaseLayout>
+  <main id="conteudo-principal">
+    <!-- 3. HERO (fundo escuro, grade + brilho) -->
+    <Hero />
+
+    <!-- 4. PROBLEMA E SOLUÇÃO (fundo claro) -->
+    <ProblemSolution />
+
+    <!-- 5. SERVIÇOS (fundo claro, grade assimétrica) -->
+    <Services />
+
+    <!-- 6. EXEMPLOS POR NICHO (fundo escuro / ink-900) -->
+    <Niches />
+
+    <!-- 7. PLANOS (fundo escuro / ink-950) -->
+    <Plans />
+
+    <!-- 8. COMO FUNCIONA (fundo claro, 4 passos na linha do tempo) -->
+    <HowItWorks />
+
+    <!-- 9. FAZER SOZINHO x COM A GENTE (fundo claro, tabela) -->
+    <Comparison />
+
+    <!-- 10. FAQ (fundo claro, accordion acessível) -->
+    <Faq />
+
+    <!-- 11. QUEM SOMOS (fundo claro, história + perfis) -->
+    <About />
+
+    <!-- 12. CONTATO (fundo escuro / ink-900, form direto WhatsApp) -->
+    <Contact />
+  </main>
+</BaseLayout>

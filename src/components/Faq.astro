@@ -1,0 +1,200 @@
+---
+import { faqData } from '../data/faq';
+---
+
+<section class="faq-section section-light" id="duvidas">
+  <div class="container">
+    <div class="section-header reveal-item">
+      <span class="tech-badge tech-badge-light">{faqData.badge}</span>
+      <h2 class="section-title">{faqData.title}</h2>
+      <p class="section-subtitle">{faqData.subtitle}</p>
+    </div>
+
+    <!-- Accordion Acessível de Perguntas Frequentes -->
+    <div class="faq-accordion-list reveal-item" id="faqAccordion">
+      {faqData.items.map((item, index) => (
+        <div class="faq-accordion-item card-light" data-faq-id={item.id}>
+          <button 
+            type="button" 
+            class="faq-question-btn" 
+            id={`faq-btn-${item.id}`}
+            aria-expanded="false" 
+            aria-controls={`faq-content-${item.id}`}
+          >
+            <span class="faq-question-text">{item.question}</span>
+            <span class="faq-toggle-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19" class="vertical-line"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </span>
+          </button>
+
+          <div 
+            id={`faq-content-${item.id}`} 
+            class="faq-answer-panel" 
+            role="region" 
+            aria-labelledby={`faq-btn-${item.id}`}
+            hidden
+          >
+            <div class="faq-answer-inner">
+              <p class="faq-answer-text">{item.answer}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const accordion = document.getElementById('faqAccordion');
+  if (accordion) {
+    const buttons = accordion.querySelectorAll('.faq-question-btn');
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+        const panelId = btn.getAttribute('aria-controls');
+        if (!panelId) return;
+        const panel = document.getElementById(panelId);
+        if (!panel) return;
+
+        // Fecha os outros itens para manter o accordion limpo
+        buttons.forEach((otherBtn) => {
+          if (otherBtn !== btn) {
+            otherBtn.setAttribute('aria-expanded', 'false');
+            const otherPanelId = otherBtn.getAttribute('aria-controls');
+            if (otherPanelId) {
+              const otherPanel = document.getElementById(otherPanelId);
+              if (otherPanel) otherPanel.hidden = true;
+            }
+          }
+        });
+
+        // Alterna o item atual
+        if (isExpanded) {
+          btn.setAttribute('aria-expanded', 'false');
+          panel.hidden = true;
+        } else {
+          btn.setAttribute('aria-expanded', 'true');
+          panel.hidden = false;
+        }
+      });
+    });
+  }
+</script>
+
+<style>
+  .faq-section {
+    padding-top: 5.5rem;
+    padding-bottom: 5.5rem;
+  }
+
+  .section-header {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto 3.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    color: var(--text-on-light);
+  }
+
+  .section-subtitle {
+    font-size: 1.05rem;
+    color: var(--muted-on-light);
+  }
+
+  .faq-accordion-list {
+    max-width: 820px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .faq-accordion-item {
+    border-radius: var(--radius-card);
+    overflow: hidden;
+  }
+
+  .faq-question-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.35rem 1.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color var(--transition-fast);
+  }
+
+  .faq-question-btn:hover {
+    background-color: var(--mint-50);
+  }
+
+  .faq-question-text {
+    font-family: var(--font-title);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-on-light);
+    line-height: 1.35;
+  }
+
+  .faq-toggle-icon {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--mint-100);
+    color: var(--mint-700);
+    flex-shrink: 0;
+    transition: transform var(--transition-normal), background-color var(--transition-normal);
+  }
+
+  .vertical-line {
+    transition: opacity var(--transition-fast);
+  }
+
+  .faq-question-btn[aria-expanded="true"] .vertical-line {
+    opacity: 0;
+  }
+
+  .faq-question-btn[aria-expanded="true"] .faq-toggle-icon {
+    background-color: var(--mint-600);
+    color: var(--white);
+    transform: rotate(90deg);
+  }
+
+  .faq-answer-panel {
+    border-top: 1px solid var(--border-light);
+  }
+
+  .faq-answer-inner {
+    padding: 1.35rem 1.5rem 1.75rem;
+    background-color: var(--surface-light);
+  }
+
+  .faq-answer-text {
+    font-size: 1rem;
+    color: var(--muted-on-light);
+    line-height: 1.7;
+  }
+
+  @media (min-width: 768px) {
+    .section-title {
+      font-size: 2.5rem;
+    }
+  }
+</style>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- TROCAR: Favicon derivado do símbolo geométrico da Agência Fontes (três arcos ascendentes) -->
+  <rect width="32" height="32" rx="8" fill="#07151A"/>
+  <!-- Três arcos concêntricos ascendentes estilizados -->
+  <path d="M7 23C7 14.7157 13.7157 8 22 8" stroke="#7ECECA" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M10 23C10 16.9249 14.9249 12 21 12" stroke="#4FBAB6" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M13 23C13 19.134 16.134 16 20 16" stroke="#2F9A98" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="21" cy="23" r="1.5" fill="#7ECECA"/>
+</svg>

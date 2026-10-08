@@ -1,0 +1,333 @@
+---
+import { nichesData } from '../data/niches';
+---
+
+<section class="niches-section section-dark-alt bg-tech-grid" id="exemplos">
+  <div class="container">
+    <div class="section-header reveal-item">
+      <span class="tech-badge tech-badge-dark">{nichesData.badge}</span>
+      <h2 class="section-title">{nichesData.title}</h2>
+      <p class="section-subtitle">{nichesData.subtitle}</p>
+    </div>
+
+    <!-- Cards Grandes por Nicho -->
+    <div class="niches-grid">
+      {nichesData.niches.map((niche) => (
+        <article class="card-dark niche-card reveal-item">
+          <!-- Mockup Visual Diferenciado por Nicho -->
+          <div class:list={['mockup-preview-box', `mockup-style-${niche.mockup.type}`]} aria-hidden="true">
+            <div class="mockup-header-bar">
+              <span class="mockup-category">{niche.mockup.categoryLabel}</span>
+              <span class="mockup-badge-pill">{niche.mockup.badgePill}</span>
+            </div>
+
+            <div class="mockup-content-body">
+              <div class="mockup-headline">{niche.mockup.headline}</div>
+              
+              <!-- Composição Única por Nicho -->
+              {niche.mockup.type === 'clinica' && (
+                <div class="niche-visual-clinica">
+                  <div class="clinic-item-row">
+                    <span class="clinic-pill">{niche.mockup.pill1}</span>
+                    <span class="clinic-pill">{niche.mockup.pill2}</span>
+                  </div>
+                  <div class="mockup-action-btn">{niche.mockup.actionLabel}</div>
+                </div>
+              )}
+
+              {niche.mockup.type === 'comercio' && (
+                <div class="niche-visual-comercio">
+                  <div class="comercio-tiles-row">
+                    <div class="comercio-tile">{niche.mockup.pill1}</div>
+                    <div class="comercio-tile">{niche.mockup.pill2}</div>
+                  </div>
+                  <div class="mockup-action-btn">{niche.mockup.actionLabel}</div>
+                </div>
+              )}
+
+              {niche.mockup.type === 'estetica' && (
+                <div class="niche-visual-estetica">
+                  <div class="estetica-pills-row">
+                    <span class="estetica-chip">{niche.mockup.pill1}</span>
+                    <span class="estetica-chip">{niche.mockup.pill2}</span>
+                  </div>
+                  <div class="mockup-action-btn">{niche.mockup.actionLabel}</div>
+                </div>
+              )}
+
+              {niche.mockup.type === 'restaurante' && (
+                <div class="niche-visual-restaurante">
+                  <div class="restaurante-menu-row">
+                    <span class="menu-tab active-tab">{niche.mockup.pill1}</span>
+                    <span class="menu-tab">{niche.mockup.pill2}</span>
+                  </div>
+                  <div class="mockup-action-btn">{niche.mockup.actionLabel}</div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <!-- Informações do Nicho -->
+          <div class="niche-info-box">
+            <div class="niche-title-row">
+              <div>
+                <h3 class="niche-name">{niche.name}</h3>
+                <span class="niche-tagline">{niche.tagline}</span>
+              </div>
+              <span class="tech-badge tech-badge-dark demo-seal">{niche.demoBadge}</span>
+            </div>
+
+            <!-- 2 Recursos em Destaque -->
+            <ul class="niche-features-list">
+              {niche.features.map((feature) => (
+                <li class="niche-feature-item">
+                  <svg class="check-icon" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="var(--mint-300)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="4 10 8 14 16 6"></polyline>
+                  </svg>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div class="niche-card-actions">
+              <a href={niche.ctaHref} class="btn btn-secondary-dark niche-cta">
+                <span>{niche.ctaText}</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .niches-section {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+    border-top: 1px solid var(--mint-alpha-10);
+    border-bottom: 1px solid var(--mint-alpha-10);
+  }
+
+  .section-header {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-title {
+    font-size: 2.25rem;
+    color: var(--text-on-dark);
+  }
+
+  .section-subtitle {
+    font-size: 1.1rem;
+    color: var(--muted-on-dark);
+  }
+
+  .niches-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .niche-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 1.75rem;
+    gap: 1.75rem;
+  }
+
+  /* Preview Mockup em CSS */
+  .mockup-preview-box {
+    background: var(--ink-800);
+    border: 1px solid var(--mint-alpha-15);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-height: 180px;
+    justify-content: space-between;
+  }
+
+  .mockup-header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--mint-alpha-10);
+  }
+
+  .mockup-category {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--muted-on-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .mockup-badge-pill {
+    background-color: var(--mint-alpha-10);
+    color: var(--mint-300);
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--mint-alpha-25);
+  }
+
+  .mockup-content-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .mockup-headline {
+    font-family: var(--font-title);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-on-dark);
+    line-height: 1.3;
+  }
+
+  .mockup-action-btn {
+    align-self: flex-start;
+    background-color: var(--mint-300);
+    color: var(--ink-950);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-sm);
+  }
+
+  /* Variações Próprias de Composição */
+  .clinic-item-row, .estetica-pills-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .clinic-pill, .estetica-chip {
+    font-size: 0.7rem;
+    background-color: var(--ink-900);
+    color: var(--muted-on-dark);
+    padding: 0.3rem 0.6rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--mint-alpha-10);
+  }
+
+  .comercio-tiles-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .comercio-tile {
+    background-color: var(--ink-900);
+    border: 1px solid var(--mint-alpha-15);
+    border-radius: var(--radius-sm);
+    padding: 0.4rem 0.6rem;
+    font-size: 0.7rem;
+    color: var(--muted-on-dark);
+    text-align: center;
+  }
+
+  .restaurante-menu-row {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .menu-tab {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-pill);
+    background-color: var(--ink-900);
+    color: var(--muted-on-dark);
+  }
+
+  .menu-tab.active-tab {
+    background-color: var(--mint-600);
+    color: var(--white);
+  }
+
+  /* Detalhes do Nicho */
+  .niche-info-box {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .niche-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .niche-name {
+    font-size: 1.4rem;
+    color: var(--text-on-dark);
+    line-height: 1.2;
+  }
+
+  .niche-tagline {
+    font-size: 0.85rem;
+    color: var(--muted-on-dark);
+  }
+
+  .demo-seal {
+    font-size: 0.65rem;
+    padding: 0.25rem 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .niche-features-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .niche-feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: 0.9rem;
+    color: var(--text-on-dark);
+    line-height: 1.4;
+  }
+
+  .check-icon {
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+  }
+
+  .niche-card-actions {
+    padding-top: 0.5rem;
+  }
+
+  .niche-cta {
+    width: 100%;
+    justify-content: center;
+  }
+
+  @media (min-width: 768px) {
+    .niches-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .section-title {
+      font-size: 2.75rem;
+    }
+  }
+</style>

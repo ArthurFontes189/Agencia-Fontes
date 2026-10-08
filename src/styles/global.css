@@ -1,0 +1,313 @@
+@import './tokens.css';
+
+/* Reset e Estilos Globais */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-on-light);
+  background-color: var(--ink-950);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  background-color: var(--ink-950);
+}
+
+/* Tipografia Base */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-title);
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+p {
+  line-height: 1.65;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Acessibilidade de Foco */
+:focus-visible {
+  outline: 2px solid var(--mint-300);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Alvos de Toque Mobile */
+button, a.btn, input, select, .interactive-touch {
+  min-height: 44px;
+}
+
+/* Container de Layout */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Classes Utilitárias de Fundo */
+.section-dark {
+  background-color: var(--ink-950);
+  color: var(--text-on-dark);
+}
+
+.section-dark-alt {
+  background-color: var(--ink-900);
+  color: var(--text-on-dark);
+}
+
+.section-light {
+  background-color: var(--surface-light);
+  color: var(--text-on-light);
+}
+
+.section-white {
+  background-color: var(--white);
+  color: var(--text-on-light);
+}
+
+/* Efeito de Grade Tech e Brilho Radial em Seções Escuras */
+.bg-tech-grid {
+  position: relative;
+  background-color: var(--ink-950);
+  background-image: 
+    linear-gradient(to right, var(--mint-alpha-06) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--mint-alpha-06) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+.bg-radial-glow {
+  position: relative;
+}
+
+.bg-radial-glow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 900px;
+  height: 500px;
+  background: radial-gradient(circle at 50% 15%, var(--mint-alpha-15) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Selos e Badges Tech em JetBrains Mono */
+.tech-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+}
+
+.tech-badge-dark {
+  background: var(--ink-800);
+  color: var(--mint-300);
+  border: 1px solid var(--mint-alpha-25);
+}
+
+.tech-badge-light {
+  background: var(--mint-100);
+  color: var(--mint-700);
+  border: 1px solid var(--mint-200);
+}
+
+/* Indicador de Status Pulsante */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--mint-300);
+  box-shadow: 0 0 8px var(--mint-300);
+  animation: pulse-slow 3s infinite ease-in-out;
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+    box-shadow: 0 0 12px var(--mint-400);
+  }
+}
+
+/* Botões */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: center;
+  min-height: 48px;
+}
+
+/* Botão Primário em Fundo Escuro */
+.btn-primary-dark {
+  background-color: var(--mint-300);
+  color: var(--ink-950);
+  border-color: var(--mint-300);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary-dark:hover {
+  background-color: var(--mint-400);
+  border-color: var(--mint-400);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-glow-mint);
+}
+
+/* Botão Secundário em Fundo Escuro */
+.btn-secondary-dark {
+  background-color: transparent;
+  color: var(--mint-300);
+  border-color: var(--mint-alpha-40);
+}
+
+.btn-secondary-dark:hover {
+  background-color: var(--mint-alpha-10);
+  border-color: var(--mint-300);
+  color: var(--mint-200);
+}
+
+/* Botão Primário em Fundo Claro */
+.btn-primary-light {
+  background-color: var(--mint-700);
+  color: var(--white);
+  border-color: var(--mint-700);
+}
+
+.btn-primary-light:hover {
+  background-color: var(--mint-600);
+  border-color: var(--mint-600);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Botão Secundário em Fundo Claro */
+.btn-secondary-light {
+  background-color: transparent;
+  color: var(--mint-700);
+  border-color: var(--mint-500);
+}
+
+.btn-secondary-light:hover {
+  background-color: var(--mint-50);
+  color: var(--mint-900);
+}
+
+/* Cards Estilizados */
+.card-dark {
+  background: var(--ink-card-bg);
+  border: 1px solid var(--mint-alpha-15);
+  border-radius: var(--radius-card);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-dark-card);
+  transition: transform var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.card-dark:hover {
+  transform: translateY(-3px);
+  border-color: var(--mint-alpha-40);
+  background: var(--ink-card-hover);
+  box-shadow: var(--shadow-glow-mint);
+}
+
+.card-light {
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.card-light:hover {
+  transform: translateY(-3px);
+  border-color: var(--mint-300);
+  box-shadow: var(--shadow-md);
+}
+
+/* Animações de Entrada ao Rolar */
+.reveal-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 550ms cubic-bezier(0.16, 1, 0.3, 1), transform 550ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-item.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Desligamento total em prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal-item {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .status-dot {
+    animation: none !important;
+  }
+}

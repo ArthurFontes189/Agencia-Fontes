@@ -1,0 +1,476 @@
+---
+import { contactData } from '../data/contact';
+import { siteData, whatsappLink } from '../data/site';
+
+const directWhatsappHref = whatsappLink(contactData.directWhatsappDefaultMessage);
+---
+
+<section class="contact-section section-dark-alt bg-tech-grid" id="contato">
+  <div class="container">
+    <div class="section-header reveal-item">
+      <span class="tech-badge tech-badge-dark">{contactData.badge}</span>
+      <h2 class="section-title">{contactData.title}</h2>
+      <p class="section-subtitle">{contactData.subtitle}</p>
+    </div>
+
+    <!-- Botão Grande de WhatsApp Direto -->
+    <div class="direct-whatsapp-card card-dark reveal-item">
+      <div class="direct-whatsapp-info">
+        <h3 class="direct-card-title">{contactData.directWhatsappHeading}</h3>
+        <p class="direct-card-text">{contactData.directWhatsappText}</p>
+      </div>
+      <a 
+        href={directWhatsappHref} 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="btn btn-primary-dark direct-cta-btn"
+      >
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+        </svg>
+        <span>{contactData.directWhatsappButtonText}</span>
+      </a>
+    </div>
+
+    <div class="contact-grid">
+      <!-- Formulário de Pré-Preenchimento -->
+      <div class="form-wrapper card-dark reveal-item">
+        <div class="form-header">
+          <h3 class="form-title">{contactData.formTitle}</h3>
+          <p class="form-subtitle">{contactData.formSubtitle}</p>
+        </div>
+
+        <form id="contactWhatsappForm" class="contact-form" novalidate data-whatsapp-target={siteData.whatsappNumber}>
+          <div class="form-group">
+            <label for="clientName" class="form-label">{contactData.form.nameLabel} *</label>
+            <input 
+              type="text" 
+              id="clientName" 
+              name="name" 
+              class="form-input" 
+              placeholder={contactData.form.namePlaceholder} 
+              required 
+            />
+            <span class="field-error" id="nameError" aria-live="polite"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="businessName" class="form-label">{contactData.form.businessLabel} *</label>
+            <input 
+              type="text" 
+              id="businessName" 
+              name="business" 
+              class="form-input" 
+              placeholder={contactData.form.businessPlaceholder} 
+              required 
+            />
+            <span class="field-error" id="businessError" aria-live="polite"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="businessSegment" class="form-label">{contactData.form.segmentLabel} *</label>
+            <select id="businessSegment" name="segment" class="form-select" required>
+              <option value="" disabled selected>{contactData.form.segmentPlaceholder}</option>
+              {contactData.form.segmentOptions.map((opt) => (
+                <option value={opt.label}>{opt.label}</option>
+              ))}
+            </select>
+            <span class="field-error" id="segmentError" aria-live="polite"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="clientPhone" class="form-label">{contactData.form.phoneLabel} *</label>
+            <input 
+              type="tel" 
+              id="clientPhone" 
+              name="phone" 
+              class="form-input" 
+              placeholder={contactData.form.phonePlaceholder} 
+              required 
+            />
+            <span class="field-error" id="phoneError" aria-live="polite"></span>
+          </div>
+
+          <!-- Checkbox Obrigatório com Link para Privacidade -->
+          <div class="form-group consent-group">
+            <label class="checkbox-label" for="consentCheckbox">
+              <input type="checkbox" id="consentCheckbox" name="consent" class="form-checkbox" required />
+              <span class="checkbox-text">
+                {contactData.form.consentCheckboxText}{' '}
+                <a href="/privacidade" class="privacy-link" target="_blank">{contactData.form.consentLinkText}</a>
+              </span>
+            </label>
+            <span class="field-error" id="consentError" aria-live="polite"></span>
+          </div>
+
+          <button type="submit" class="btn btn-primary-dark submit-btn">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+            </svg>
+            <span>{contactData.form.submitButtonText}</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Canais de Contato Direto -->
+      <div class="contact-channels reveal-item">
+        <h3 class="channels-title">{contactData.infoCardsTitle}</h3>
+
+        <div class="channel-card card-dark">
+          <div class="channel-icon-box">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--mint-300)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+          </div>
+          <div class="channel-details">
+            <span class="channel-label">{contactData.channels.locationLabel}</span>
+            <strong class="channel-value">{siteData.city} ({siteData.areaServed})</strong>
+          </div>
+        </div>
+
+        <div class="channel-card card-dark">
+          <div class="channel-icon-box">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--mint-300)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+            </svg>
+          </div>
+          <div class="channel-details">
+            <span class="channel-label">{contactData.channels.emailLabel}</span>
+            <strong class="channel-value">{siteData.email}</strong>
+          </div>
+        </div>
+
+        <div class="channel-card card-dark">
+          <div class="channel-icon-box">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--mint-300)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+          </div>
+          <div class="channel-details">
+            <span class="channel-label">{contactData.channels.instagramLabel}</span>
+            <strong class="channel-value">{siteData.instagram}</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('contactWhatsappForm') as HTMLFormElement | null;
+
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const nameInput = document.getElementById('clientName') as HTMLInputElement | null;
+      const businessInput = document.getElementById('businessName') as HTMLInputElement | null;
+      const segmentInput = document.getElementById('businessSegment') as HTMLSelectElement | null;
+      const phoneInput = document.getElementById('clientPhone') as HTMLInputElement | null;
+      const consentInput = document.getElementById('consentCheckbox') as HTMLInputElement | null;
+
+      const nameError = document.getElementById('nameError');
+      const businessError = document.getElementById('businessError');
+      const segmentError = document.getElementById('segmentError');
+      const phoneError = document.getElementById('phoneError');
+      const consentError = document.getElementById('consentError');
+
+      // Limpar erros prévios
+      if (nameError) nameError.textContent = '';
+      if (businessError) businessError.textContent = '';
+      if (segmentError) segmentError.textContent = '';
+      if (phoneError) phoneError.textContent = '';
+      if (consentError) consentError.textContent = '';
+
+      let hasError = false;
+
+      const name = nameInput?.value.trim() || '';
+      const business = businessInput?.value.trim() || '';
+      const segment = segmentInput?.value || '';
+      const phone = phoneInput?.value.trim() || '';
+      const consent = consentInput?.checked || false;
+
+      if (!name) {
+        if (nameError) nameError.textContent = 'Por favor, informe seu nome.';
+        hasError = true;
+      }
+
+      if (!business) {
+        if (businessError) businessError.textContent = 'Por favor, informe o nome do seu negócio.';
+        hasError = true;
+      }
+
+      if (!segment) {
+        if (segmentError) segmentError.textContent = 'Por favor, selecione o ramo de atuação.';
+        hasError = true;
+      }
+
+      if (!phone || phone.replace(/\D/g, '').length < 8) {
+        if (phoneError) phoneError.textContent = 'Por favor, informe um WhatsApp válido com DDD.';
+        hasError = true;
+      }
+
+      if (!consent) {
+        if (consentError) consentError.textContent = 'É necessário concordar para continuarmos o contato.';
+        hasError = true;
+      }
+
+      if (hasError) return;
+
+      // Monta mensagem estruturada para envio direto no WhatsApp
+      const rawTarget = form.getAttribute('data-whatsapp-target') || '';
+      const cleanDigits = rawTarget.replace(/\D/g, '');
+      const targetPhone = cleanDigits.length >= 10 ? cleanDigits : '61900000000';
+
+      const message = `Olá, Agência Fontes! Preenchi o formulário no site e gostaria de solicitar uma demonstração:
+• Nome: ${name}
+• Negócio: ${business}
+• Segmento: ${segment}
+• Meu WhatsApp: ${phone}`;
+
+      const waUrl = `https://wa.me/55${targetPhone}?text=${encodeURIComponent(message)}`;
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+    });
+  }
+</script>
+
+<style>
+  .contact-section {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+
+  .section-header {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto 3.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-title {
+    font-size: 2.25rem;
+    color: var(--text-on-dark);
+  }
+
+  .section-subtitle {
+    font-size: 1.1rem;
+    color: var(--muted-on-dark);
+  }
+
+  /* Card Grande de WhatsApp Direto */
+  .direct-whatsapp-card {
+    padding: 2.25rem 2rem;
+    margin-bottom: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: flex-start;
+    border: 1px solid var(--mint-alpha-25);
+    background: linear-gradient(135deg, var(--ink-800) 0%, var(--ink-900) 100%);
+  }
+
+  .direct-card-title {
+    font-size: 1.35rem;
+    color: var(--text-on-dark);
+    margin-bottom: 0.35rem;
+  }
+
+  .direct-card-text {
+    font-size: 1rem;
+    color: var(--muted-on-dark);
+  }
+
+  .direct-cta-btn {
+    font-size: 1rem;
+    padding: 0.85rem 1.75rem;
+  }
+
+  /* Grade do Formulário e Canais */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .form-wrapper {
+    padding: 2.25rem 2rem;
+  }
+
+  .form-header {
+    margin-bottom: 2rem;
+  }
+
+  .form-title {
+    font-size: 1.45rem;
+    color: var(--text-on-dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .form-subtitle {
+    font-size: 0.95rem;
+    color: var(--muted-on-dark);
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .form-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-on-dark);
+  }
+
+  .form-input, .form-select {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background-color: var(--ink-950);
+    border: 1px solid var(--mint-alpha-20);
+    border-radius: var(--radius-sm);
+    color: var(--text-on-dark);
+    font-size: 0.95rem;
+    min-height: 48px;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .form-input:focus, .form-select:focus {
+    border-color: var(--mint-300);
+    box-shadow: 0 0 0 3px rgba(126, 206, 202, 0.25);
+    outline: none;
+  }
+
+  .form-select option {
+    background-color: var(--ink-900);
+    color: var(--text-on-dark);
+  }
+
+  .consent-group {
+    margin-top: 0.5rem;
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--muted-on-dark);
+    line-height: 1.5;
+  }
+
+  .form-checkbox {
+    margin-top: 0.2rem;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--mint-400);
+    flex-shrink: 0;
+  }
+
+  .privacy-link {
+    color: var(--mint-300);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .privacy-link:hover {
+    color: var(--mint-400);
+  }
+
+  .field-error {
+    font-size: 0.8rem;
+    color: var(--error-text); /* Erro de validação destacado */
+    min-height: 1.1rem;
+  }
+
+  .submit-btn {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  /* Canais de Contato */
+  .contact-channels {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .channels-title {
+    font-size: 1.35rem;
+    color: var(--text-on-dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .channel-card {
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .channel-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    background-color: var(--ink-800);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid var(--mint-alpha-20);
+  }
+
+  .channel-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .channel-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--muted-on-dark);
+    letter-spacing: 0.05em;
+  }
+
+  .channel-value {
+    font-size: 1rem;
+    color: var(--text-on-dark);
+    word-break: break-all;
+  }
+
+  @media (min-width: 768px) {
+    .direct-whatsapp-card {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .direct-cta-btn {
+      flex-shrink: 0;
+    }
+
+    .contact-grid {
+      grid-template-columns: 1.2fr 0.8fr;
+    }
+
+    .section-title {
+      font-size: 2.75rem;
+    }
+  }
+</style>

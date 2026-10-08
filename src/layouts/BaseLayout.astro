@@ -1,0 +1,117 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FloatingWhatsapp from '../components/FloatingWhatsapp.astro';
+import { siteData } from '../data/site';
+import '../styles/tokens.css';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  isPrivacyPage?: boolean;
+}
+
+const {
+  title = "Agência Fontes | Sites, conteúdo e anúncios para pequenos negócios em Brasília",
+  description = "A Agência Fontes cria o site profissional do seu negócio antes de você pagar. Presença digital completa com Google Meu Negócio, conteúdo e anúncios em Brasília, DF.",
+  isPrivacyPage = false
+} = Astro.props;
+
+// JSON-LD Estruturado ProfessionalService alimentado por site.ts (sem endereço de rua)
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": siteData.name,
+  "description": description,
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Brasília",
+    "addressRegion": "DF",
+    "addressCountry": "BR"
+  },
+  "areaServed": "Brasília, DF",
+  "url": "https://agenciafontes.com.br"
+};
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07151A" />
+    
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph / Redes Sociais -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content={siteData.name} />
+
+    <!-- Favicon SVG derivado da marca -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Google Fonts: Space Grotesk, Inter e JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link 
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap" 
+      rel="stylesheet" 
+    />
+
+    <!-- Dados Estruturados JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  </head>
+  <body>
+    <Header />
+
+    <slot />
+
+    <Footer />
+
+    <!-- Botão Flutuante de WhatsApp presente em todas as telas -->
+    <FloatingWhatsapp />
+
+    <!-- Script de Animação Suave ao Rolar com IntersectionObserver (respeita prefers-reduced-motion) -->
+    <script>
+      const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      function initScrollAnimations() {
+        const revealElements = document.querySelectorAll('.reveal-item');
+        
+        if (mediaQuery.matches) {
+          revealElements.forEach((el) => {
+            el.classList.add('is-revealed');
+          });
+          return;
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-revealed');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.12,
+          rootMargin: '0px 0px -40px 0px'
+        });
+
+        revealElements.forEach((el) => {
+          observer.observe(el);
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initScrollAnimations);
+      } else {
+        initScrollAnimations();
+      }
+    </script>
+  </body>
+</html>

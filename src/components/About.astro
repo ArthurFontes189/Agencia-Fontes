@@ -1,0 +1,262 @@
+---
+import { aboutData } from '../data/about';
+
+const hasOptionalParagraph = Boolean(aboutData.optionalParagraph && aboutData.optionalParagraph.trim().length > 0);
+---
+
+<section class="about-section section-white" id="quem-somos">
+  <div class="container">
+    <div class="about-grid">
+      <!-- Coluna da Esquerda: História, Valores e Marca -->
+      <div class="about-story-col reveal-item">
+        <!-- Selo Mono Oficial -->
+        <span class="tech-badge tech-badge-light about-badge">{aboutData.badge}</span>
+
+        <!-- Título -->
+        <h2 class="about-title">{aboutData.title}</h2>
+
+        <!-- Parágrafos da História -->
+        <div class="about-paragraphs">
+          <p class="about-p">{aboutData.paragraph1}</p>
+          <p class="about-p">{aboutData.paragraph2}</p>
+          <p class="about-p">{aboutData.paragraph3}</p>
+          
+          {/* Parágrafo Opcional: renderizado APENAS se preenchido */}
+          {hasOptionalParagraph && (
+            <p class="about-p about-p-optional">{aboutData.optionalParagraph}</p>
+          )}
+        </div>
+
+        <!-- Chips de Valores -->
+        <div class="values-chips-wrapper">
+          {aboutData.valuesChips.map((val) => (
+            <span class="value-chip">
+              <svg class="chip-check" viewBox="0 0 20 20" width="14" height="14" fill="none" stroke="var(--mint-600)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="4 10 8 14 16 6"></polyline>
+              </svg>
+              <span>{val}</span>
+            </span>
+          ))}
+        </div>
+
+        <!-- Bloco Discreto: Por que Fontes? -->
+        <div class="why-fontes-card">
+          <h3 class="why-fontes-title">{aboutData.whyFontesTitle}</h3>
+          <p class="why-fontes-text">{aboutData.whyFontesText}</p>
+        </div>
+      </div>
+
+      <!-- Coluna da Direita: Os Dois Sócios -->
+      <div class="about-profiles-col reveal-item">
+        <div class="profiles-cards-container">
+          {aboutData.profiles.map((profile) => (
+            <article class="card-light profile-card">
+              <!-- Placeholder elegante para foto: Iniciais em círculo -->
+              {/* TROCAR: substituir placeholder por foto real */}
+              <div class="profile-avatar-circle" aria-label={`Foto de perfil de ${profile.name}`}>
+                <span class="avatar-initials">{profile.initials}</span>
+              </div>
+
+              <div class="profile-details">
+                <h4 class="profile-name">{profile.name}</h4>
+                <span class="profile-role">{profile.role}</span>
+                <blockquote class="profile-quote">
+                  "{profile.quote}"
+                </blockquote>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-section {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+    border-top: 1px solid var(--border-light);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+    align-items: start;
+  }
+
+  .about-story-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .about-badge {
+    align-self: flex-start;
+  }
+
+  .about-title {
+    font-size: 2.15rem;
+    color: var(--text-on-light);
+    line-height: 1.2;
+  }
+
+  .about-paragraphs {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+  }
+
+  .about-p {
+    font-size: 1.05rem;
+    color: var(--muted-on-light);
+    line-height: 1.7;
+  }
+
+  .about-p-optional {
+    padding-left: 1rem;
+    border-left: 3px solid var(--mint-500);
+    font-style: italic;
+  }
+
+  /* Chips de Valores */
+  .values-chips-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .value-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--mint-900);
+    background-color: var(--mint-50);
+    padding: 0.45rem 0.95rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--mint-200);
+  }
+
+  .chip-check {
+    flex-shrink: 0;
+  }
+
+  /* Bloco Por que Fontes? */
+  .why-fontes-card {
+    margin-top: 1.5rem;
+    background-color: var(--surface-light);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .why-fontes-title {
+    font-size: 1.05rem;
+    color: var(--mint-900);
+    font-weight: 700;
+  }
+
+  .why-fontes-text {
+    font-size: 0.95rem;
+    color: var(--muted-on-light);
+    line-height: 1.6;
+  }
+
+  /* Perfis dos Sócios */
+  .about-profiles-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .profiles-cards-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .profile-card {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  /* Placeholder de Avatar elegante */
+  .profile-avatar-circle {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--mint-100) 0%, var(--mint-200) 100%);
+    border: 2px solid var(--mint-400);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .avatar-initials {
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--mint-700);
+    letter-spacing: 0.05em;
+  }
+
+  .profile-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .profile-name {
+    font-size: 1.25rem;
+    color: var(--text-on-light);
+    line-height: 1.3;
+  }
+
+  .profile-role {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--mint-700);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.5rem;
+  }
+
+  .profile-quote {
+    font-size: 0.95rem;
+    color: var(--muted-on-light);
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  @media (min-width: 768px) {
+    .profiles-cards-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .about-grid {
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 4.5rem;
+    }
+
+    .about-title {
+      font-size: 2.5rem;
+    }
+
+    .profiles-cards-container {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

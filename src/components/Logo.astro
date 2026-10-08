@@ -1,0 +1,68 @@
+---
+// TROCAR: Este é um logotipo vetorial provisório. Pode ser substituído por arquivo próprio da marca (ex: SVG ou imagem oficial)
+import { siteData } from '../data/site';
+
+interface Props {
+  isLight?: boolean;
+}
+
+const { isLight = false } = Astro.props;
+---
+
+<a href="/" class="brand-logo" aria-label={`${siteData.name} - Página inicial`}>
+  <svg class="brand-symbol" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <!-- Símbolo geométrico original: três arcos ascendentes estilizados representando fontes e origens -->
+    <path d="M6 24C6 14.0589 14.0589 6 24 6" stroke="var(--mint-300)" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M10 24C10 16.268 16.268 10 24 10" stroke="var(--mint-400)" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M14 24C14 18.4772 18.4772 14 24 14" stroke="var(--mint-500)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="23.5" cy="23.5" r="1.5" fill="var(--mint-300)"/>
+  </svg>
+  <span class:list={['brand-wordmark', { 'wordmark-light': isLight }]}>
+    <span class="brand-first">{siteData.brandFirstName}</span>
+    <span class="brand-last">{siteData.brandLastName}</span>
+  </span>
+</a>
+
+<style>
+  .brand-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    user-select: none;
+  }
+
+  .brand-symbol {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+  }
+
+  .brand-wordmark {
+    display: inline-flex;
+    gap: 0.35rem;
+    font-family: var(--font-title);
+    font-size: 1.25rem;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .brand-first {
+    font-weight: 500;
+    color: var(--text-on-dark);
+  }
+
+  .brand-last {
+    font-weight: 700;
+    color: var(--mint-300);
+  }
+
+  /* Versão para fundos claros */
+  .wordmark-light .brand-first {
+    color: var(--text-on-light);
+  }
+
+  .wordmark-light .brand-last {
+    color: var(--mint-700);
+  }
+</style>

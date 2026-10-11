@@ -1,0 +1,143 @@
+---
+import "../styles/tokens.css";
+
+interface Props {
+  title: string;
+  description?: string;
+  robots?: string;
+}
+
+const { title, description = "", robots = "" } = Astro.props;
+const canonicalURL = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site)
+  : null;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#031130" />
+    {canonicalURL && <link rel="canonical" href={canonicalURL} />}
+
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    {robots && <meta name="robots" content={robots} />}
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:type" content="website" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL}favicon.png`} />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style is:global>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: var(--font-body);
+        color: var(--text-on-light);
+        background-color: var(--surface-light);
+        line-height: 1.6;
+        font-size: 16px;
+      }
+
+      a {
+        color: var(--primary-500);
+        text-decoration: none;
+        transition: color var(--transition-base);
+      }
+
+      a:hover {
+        color: var(--primary-600);
+      }
+
+      a:focus-visible {
+        outline: 2px solid var(--primary-500);
+        outline-offset: 2px;
+      }
+
+      button {
+        cursor: pointer;
+        font-family: var(--font-body);
+        border: none;
+        border-radius: var(--radius-lg);
+        transition: all var(--transition-base);
+      }
+
+      button:focus-visible {
+        outline: 2px solid var(--primary-500);
+        outline-offset: 2px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <slot />
+
+    <script>
+      // Ativar animações quando elementos entram na viewport
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (!prefersReduced) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const el = entry.target as HTMLElement;
+
+              // Ativar animação fade-in-up por padrão
+              if (!el.style.animationName) {
+                el.classList.add("animate-fade-in-up");
+              }
+
+              // Parar de observar após ativar
+              observer.unobserve(el);
+            }
+          });
+        }, {
+          threshold: 0.1,
+          rootMargin: "0px 0px -50px 0px", // Começa a animar 50px antes de entrar
+        });
+
+        // Observar elementos com classes de animação que não sejam visíveis
+        document.querySelectorAll(
+          "[class*='animate-'], section, .card, .service-item, .plan-card, .faq-item"
+        ).forEach((el) => {
+          const rect = el.getBoundingClientRect();
+          // Se já está visível, não observar
+          if (rect.top > window.innerHeight || rect.bottom < 0) {
+            observer.observe(el);
+          } else {
+            // Se já visível, ativar direto
+            (el as HTMLElement).classList.add("animate-fade-in-up");
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

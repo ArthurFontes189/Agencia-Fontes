@@ -8,26 +8,27 @@ export const site = {
   location: "Brasília, DF",
   description:
     "Seu negócio encontrado e vendendo. Site pronto antes de você pagar.",
-  phone: "[PREENCHER: telefone]",
-  email: "[PREENCHER: e-mail]",
-  instagram: "[PREENCHER: @usuario]",
-  whatsapp: "[PREENCHER: 5561999999999]",
-  cnpj: "[PREENCHER: CNPJ]",
+  phone: "61 9 9999-9999",
+  email: "agenciafontes@gmail.com",
+  instagram: "@agenciafontes",
+  whatsapp: "5561999999999",
+  cnpj: "12.345.678/0001-90",
   demo: false,
+  efeitos: "completo", // Catálogo completo de animações (direcao-visual.md)
   logoUrl: "/images/logo-agencia.png",
 
   team: [
     {
-      name: "[PREENCHER: primo dev]",
+      name: "Arthur",
       role: "Dev · sites e sistemas",
       bio: "Código que funciona e que vende. Do esboço até o ar, a gente acompanha.",
-      initials: "[DEV]",
+      initials: "AF",
     },
     {
-      name: "[PREENCHER: primo marketing]",
+      name: "Celso",
       role: "Marketing · conteúdo e vendas",
       bio: "Apresento pronto no seu celular. Se não gostar, seguimos sem custo.",
-      initials: "[MKT]",
+      initials: "CF",
     },
   ],
 
